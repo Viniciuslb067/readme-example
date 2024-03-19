@@ -1,7 +1,9 @@
+import Header from 'components/Header';
+
 function App() {
   return (
-    <div className="flex h-screen items-center justify-center bg-[#E5E7EB]">
-      <h1>callface challenge</h1>
+    <div className="flex h-screen bg-gray-200">
+      <Header />
     </div>
   );
 }
