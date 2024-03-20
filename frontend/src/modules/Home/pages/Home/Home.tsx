@@ -3,7 +3,7 @@ import { Sections } from 'modules/Home/components';
 
 const Home = () => {
   return (
-    <div className="flex h-screen flex-col bg-gray-200">
+    <div className="flex h-full flex-col bg-gray-200">
       <Header />
       <Sections />
     </div>

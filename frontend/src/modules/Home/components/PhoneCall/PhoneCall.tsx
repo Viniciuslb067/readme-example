@@ -50,7 +50,7 @@ const PhoneCall = () => {
   };
 
   return (
-    <div className="px-8 py-12">
+    <div className="flex h-full flex-col px-8 pt-12">
       <div className="flex items-center justify-center space-x-2">
         <div className="flex items-center space-x-2 rounded-xl p-3 shadow-sm shadow-gray-300">
           <IconMicrophone size={24} color="#30D158" />
@@ -73,7 +73,7 @@ const PhoneCall = () => {
         phoneNumber={phoneNumber}
         setPhoneNumber={setPhoneNumber}
       />
-      <div className="mt-28 flex justify-center space-x-4">
+      <div className="mt-16 flex justify-center space-x-4">
         <button className="bg-brand-primary cursor pointer flex items-center space-x-2 rounded-xl px-6 py-2">
           <IconPlayerRecord size={24} color="#fff" />
           <p className="text-[16px] font-medium text-white">Gravar ligação</p>

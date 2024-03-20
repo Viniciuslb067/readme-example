@@ -82,7 +82,7 @@ const CRMNotIntegrated = ({ handleIntegrateCRM }: CRMNotIntegratedProps) => {
           </div>
         ))}
       </div>
-      <div className="flex grow flex-col space-y-10 rounded-xl border border-gray-100 px-9 pb-2 pt-3">
+      <div className="flex grow flex-col rounded-xl border border-gray-100 px-9 pb-2 pt-3">
         <div className="flex justify-center space-x-16">
           {items2.map((item, index) => (
             <div
@@ -94,7 +94,7 @@ const CRMNotIntegrated = ({ handleIntegrateCRM }: CRMNotIntegratedProps) => {
             </div>
           ))}
         </div>
-        <div className="bg-brand-primary flex grow flex-col items-center justify-between rounded-xl px-8 pb-4 pt-14">
+        <div className="bg-brand-primary mt-24 flex flex-col items-center justify-between rounded-xl px-8 pb-4 pt-14">
           <div>
             <div className="lg:w-[317px]">
               <h1 className="text-center text-xl font-medium text-white">
