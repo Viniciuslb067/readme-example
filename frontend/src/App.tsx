@@ -1,10 +1,11 @@
-import Header from 'components/Header';
+import React from 'react'; // Import React
+import Home from 'modules/Home/pages/Home/Home';
 
 function App() {
   return (
-    <div className="flex h-screen bg-gray-200">
-      <Header />
-    </div>
+    <>
+      <Home />
+    </>
   );
 }
 
