@@ -125,4 +125,4 @@ const CRMNotIntegrated = ({ handleIntegrateCRM }: CRMNotIntegratedProps) => {
   );
 };
 
-export default CRMNotIntegrated;
+export { CRMNotIntegrated };
