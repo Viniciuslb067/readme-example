@@ -55,10 +55,10 @@ const PhoneKeypad = ({
         ))}
         <button></button>
         <button
-          disabled={phoneNumber.length !== 11}
+          disabled={phoneNumber.length === 0}
           className={`flex size-16 cursor-pointer flex-col items-center justify-center rounded-full hover:opacity-80 ${
             !isCallActive ? 'bg-support-success' : 'bg-support-error'
-          } ${phoneNumber.length !== 11 && 'opacity-50'}`}
+          } ${phoneNumber.length === 0 && 'opacity-50'}`}
           onClick={handleCall}
         >
           {!isCallActive ? (
