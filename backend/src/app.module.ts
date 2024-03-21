@@ -8,6 +8,7 @@ import { AppResolver } from './app.resolver';
 import config from './common/configs/config';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GqlConfigService } from './gql-config.service';
+import { CustomerModule } from './modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -24,6 +25,8 @@ import { GqlConfigService } from './gql-config.service';
         ],
       },
     }),
+
+    CustomerModule,
 
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,

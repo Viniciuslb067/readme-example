@@ -2,56 +2,77 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-async function main() {
-  await prisma.user.deleteMany();
-  await prisma.post.deleteMany();
+async function addUsers() {
+  await prisma.customer.deleteMany();
+  await prisma.salesperson.deleteMany();
 
-  console.log('Seeding...');
-
-  const user1 = await prisma.user.create({
+  const salesperson = await prisma.salesperson.create({
     data: {
+      name: 'Homer Simpson',
+      email: 'home@simpson.com',
+      phone: '(31) 99999-9999',
+      position: 'Vendedor',
+    },
+  });
+
+  const customer = await prisma.customer.create({
+    data: {
+      name: 'Lisa Simpson',
       email: 'lisa@simpson.com',
-      firstname: 'Lisa',
-      lastname: 'Simpson',
-      password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-      role: 'USER',
-      posts: {
-        create: {
-          title: 'Join us for Prisma Day 2019 in Berlin',
-          content: 'https://www.prisma.io/day/',
-          published: true,
-        },
-      },
-    },
-  });
-  const user2 = await prisma.user.create({
-    data: {
-      email: 'bart@simpson.com',
-      firstname: 'Bart',
-      lastname: 'Simpson',
-      role: 'ADMIN',
-      password: '$2b$10$EpRnTzVlqHNP0.fUbXUwSOyuiXe/QLSUG6xNekdHgTGmrpHEfIoxm', // secret42
-      posts: {
-        create: [
-          {
-            title: 'Subscribe to GraphQL Weekly for community news',
-            content: 'https://graphqlweekly.com/',
-            published: true,
-          },
-          {
-            title: 'Follow Prisma on Twitter',
-            content: 'https://twitter.com/prisma',
-            published: false,
-          },
-        ],
-      },
+      cpf: '123.456.789-00',
+      webSite: 'https://www.example.com',
+      phone: '(31) 99999-9999',
+      role: 'Gerente',
+      companyName: 'Springfield Elementary',
+      companyCnpj: '00.000.000/0001-00',
+      employees: 100,
     },
   });
 
-  console.log({ user1, user2 });
+  console.log({ customer, salesperson });
 }
 
-main()
+async function createConversation() {
+  const customer = await prisma.customer.findUnique({
+    where: { email: 'lisa@simpson.com' },
+  });
+  const salesperson = await prisma.salesperson.findUnique({
+    where: { email: 'home@simpson.com' },
+  });
+
+  const messages = [
+    { sender: 'salesperson', content: 'Olá, Lisa! Como posso ajudá-la hoje?' },
+    {
+      sender: 'customer',
+      content:
+        'Olá! Estou interessada em saber mais sobre os produtos que vocês oferecem.',
+    },
+    {
+      sender: 'salesperson',
+      content:
+        'Com certeza! Temos uma variedade de produtos de alta qualidade. Posso fornecer mais detalhes sobre eles.',
+    },
+  ];
+
+  for (const message of messages) {
+    await prisma.chatMessage.create({
+      data: {
+        ...message,
+        customerId: customer.id,
+        salespersonId: salesperson.id,
+      } as any,
+    });
+  }
+
+  console.log('Chat criado com sucesso!');
+}
+
+async function seed() {
+  await addUsers();
+  await createConversation();
+}
+
+seed()
   .catch((e) => console.error(e))
   .finally(async () => {
     await prisma.$disconnect();

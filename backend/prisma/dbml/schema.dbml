@@ -2,32 +2,50 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table User {
-  id String [pk]
+Table ChatMessage {
+  id Int [pk, increment]
+  content String [not null]
+  sender Sender [not null]
+  customerId Int [not null]
+  salespersonId Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
+  customer Customer [not null]
+  salesperson Salesperson [not null]
+}
+
+Table Customer {
+  id Int [pk, increment]
+  name String [not null]
   email String [unique, not null]
-  password String [not null]
-  firstname String
-  lastname String
-  posts Post [not null]
-  role Role [not null]
-}
-
-Table Post {
-  id String [pk]
+  cpf String [unique, not null]
+  webSite String [not null]
+  phone String [not null]
+  role String [not null]
+  companyName String [not null]
+  companyCnpj String [not null]
+  employees Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  published Boolean [not null]
-  title String [not null]
-  content String
-  author User
-  authorId String
+  chatMessage ChatMessage [not null]
 }
 
-Enum Role {
-  ADMIN
-  USER
+Table Salesperson {
+  id Int [pk, increment]
+  name String [not null]
+  email String [unique, not null]
+  phone String [not null]
+  position String [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  chatMessage ChatMessage [not null]
 }
 
-Ref: Post.authorId > User.id
+Enum Sender {
+  customer
+  salesperson
+}
+
+Ref: ChatMessage.customerId > Customer.id
+
+Ref: ChatMessage.salespersonId > Salesperson.id

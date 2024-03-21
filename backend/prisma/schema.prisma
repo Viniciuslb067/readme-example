@@ -12,30 +12,47 @@ generator dbml {
   provider = "prisma-dbml-generator"
 }
 
-model User {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  password  String
-  firstname String?
-  lastname  String?
-  posts     Post[]
-  role      Role
+enum Sender {
+  customer
+  salesperson
 }
 
-model Post {
-  id        String   @id @default(cuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  published Boolean
-  title     String
-  content   String?
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String?
+model ChatMessage {
+  id            Int      @id @default(autoincrement())
+  content       String
+  sender        Sender
+  customerId    Int
+  salespersonId Int
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  customer    Customer    @relation(fields: [customerId], references: [id])
+  salesperson Salesperson @relation(fields: [salespersonId], references: [id])
 }
 
-enum Role {
-  ADMIN
-  USER
+model Customer {
+  id          Int           @id @default(autoincrement())
+  name        String
+  email       String        @unique
+  cpf         String        @unique
+  webSite     String
+  phone       String
+  role        String
+  companyName String
+  companyCnpj String
+  employees   Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  chatMessage ChatMessage[]
+}
+
+model Salesperson {
+  id          Int           @id @default(autoincrement())
+  name        String
+  email       String        @unique
+  phone       String
+  position    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  chatMessage ChatMessage[]
 }
