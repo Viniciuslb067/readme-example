@@ -24,6 +24,15 @@ const Sections = () => {
     }
   };
 
+  const refreshMessages = async () => {
+    try {
+      const { data: chatMessageData } = await getChatMessages('1');
+      setUserMessages(chatMessageData);
+    } catch (error: any) {
+      toast.error('Erro para recarregar o chat');
+    }
+  };
+
   return (
     <div className="flex h-full grow space-x-3 p-4">
       <div className="h-[810px] w-full rounded-l-xl bg-white">
@@ -34,7 +43,7 @@ const Sections = () => {
         )}
       </div>
       <div className="h-[810px] w-full bg-white">
-        <Chat messages={userMessages} />
+        <Chat messages={userMessages} refreshMessages={refreshMessages} />
       </div>
       <div className="h-[810px] w-full grow rounded-r-xl bg-white">
         <PhoneCall />

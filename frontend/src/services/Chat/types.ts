@@ -8,6 +8,7 @@ export interface Messages {
 }
 
 export interface GetMessageType {
+  id: string;
   identifier: string;
   customerId: number;
   salespersonId: number;

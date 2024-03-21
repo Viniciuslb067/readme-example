@@ -70,7 +70,7 @@ export class ChatService {
         data: {
           content,
           sender,
-          conversationId,
+          conversationId: Number(conversationId),
         },
       });
     } catch (error) {
