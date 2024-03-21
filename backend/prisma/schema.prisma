@@ -5,7 +5,6 @@ datasource db {
 
 generator client {
   provider = "prisma-client-js"
-  // previewFeatures = []
 }
 
 generator dbml {
@@ -13,14 +12,13 @@ generator dbml {
 }
 
 enum Sender {
-  customer
-  salesperson
+  CUSTOMER
+  SALESPERSON
 }
 
-model ChatMessage {
+model Conversation {
   id            Int      @id @default(autoincrement())
-  content       String
-  sender        Sender
+  identifier    String   @unique
   customerId    Int
   salespersonId Int
   createdAt     DateTime @default(now())
@@ -28,31 +26,43 @@ model ChatMessage {
 
   customer    Customer    @relation(fields: [customerId], references: [id])
   salesperson Salesperson @relation(fields: [salespersonId], references: [id])
+  messages    Message[]
+}
+
+model Message {
+  id             Int      @id @default(autoincrement())
+  content        String
+  sender         Sender
+  conversationId Int
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
 }
 
 model Customer {
-  id          Int           @id @default(autoincrement())
-  name        String
-  email       String        @unique
-  cpf         String        @unique
-  webSite     String
-  phone       String
-  role        String
-  companyName String
-  companyCnpj String
-  employees   Int
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  chatMessage ChatMessage[]
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  cpf           String         @unique
+  website       String
+  phone         String
+  role          String
+  companyName   String
+  companyCnpj   String
+  employees     Int
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  conversations Conversation[]
 }
 
 model Salesperson {
-  id          Int           @id @default(autoincrement())
-  name        String
-  email       String        @unique
-  phone       String
-  position    String
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  chatMessage ChatMessage[]
+  id            Int            @id @default(autoincrement())
+  name          String
+  email         String         @unique
+  phone         String
+  position      String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  conversations Conversation[]
 }

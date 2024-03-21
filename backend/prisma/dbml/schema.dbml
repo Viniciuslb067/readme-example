@@ -2,16 +2,26 @@
 //// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 //// ------------------------------------------------------
 
-Table ChatMessage {
+Table Conversation {
   id Int [pk, increment]
-  content String [not null]
-  sender Sender [not null]
+  identifier String [unique, not null]
   customerId Int [not null]
   salespersonId Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
   customer Customer [not null]
   salesperson Salesperson [not null]
+  messages Message [not null]
+}
+
+Table Message {
+  id Int [pk, increment]
+  content String [not null]
+  sender Sender [not null]
+  conversationId Int [not null]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  conversation Conversation [not null]
 }
 
 Table Customer {
@@ -19,7 +29,7 @@ Table Customer {
   name String [not null]
   email String [unique, not null]
   cpf String [unique, not null]
-  webSite String [not null]
+  website String [not null]
   phone String [not null]
   role String [not null]
   companyName String [not null]
@@ -27,7 +37,7 @@ Table Customer {
   employees Int [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  chatMessage ChatMessage [not null]
+  conversations Conversation [not null]
 }
 
 Table Salesperson {
@@ -38,14 +48,16 @@ Table Salesperson {
   position String [not null]
   createdAt DateTime [default: `now()`, not null]
   updatedAt DateTime [not null]
-  chatMessage ChatMessage [not null]
+  conversations Conversation [not null]
 }
 
 Enum Sender {
-  customer
-  salesperson
+  CUSTOMER
+  SALESPERSON
 }
 
-Ref: ChatMessage.customerId > Customer.id
+Ref: Conversation.customerId > Customer.id
 
-Ref: ChatMessage.salespersonId > Salesperson.id
+Ref: Conversation.salespersonId > Salesperson.id
+
+Ref: Message.conversationId > Conversation.id
