@@ -31,7 +31,7 @@ export class CustomerService {
       });
 
       if (!customer) {
-        return formatError(
+        throw formatError(
           HttpStatus.NOT_FOUND,
           'Cliente não encontrado.',
           `Cliente com id ${id} não encontrado.`,
@@ -40,12 +40,11 @@ export class CustomerService {
 
       return customer;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar o cliente.',
         error,
       );
-      return formattedError;
     }
   }
 }

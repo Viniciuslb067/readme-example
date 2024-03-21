@@ -15,12 +15,11 @@ export class ChatController {
     try {
       return await this.chatService.getAllChats();
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar todas as conversas.',
         error,
       );
-      return formattedError;
     }
   }
 
@@ -31,12 +30,11 @@ export class ChatController {
     try {
       return await this.chatService.getChat(conversationId);
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar a conversa.',
         error,
       );
-      return formattedError;
     }
   }
 
@@ -56,12 +54,11 @@ export class ChatController {
         content,
       );
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao enviar a mensagem.',
         error,
       );
-      return formattedError;
     }
   }
 }

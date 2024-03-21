@@ -21,12 +21,11 @@ export class ChatService {
       });
       return chats;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar as conversas.',
         error,
       );
-      return formattedError;
     }
   }
 
@@ -44,7 +43,7 @@ export class ChatService {
       });
 
       if (!conversation) {
-        return formatError(
+        throw formatError(
           HttpStatus.NOT_FOUND,
           'Conversa não encontrada.',
           `Conversa com id ${conversationId} não encontrada.`,
@@ -53,12 +52,11 @@ export class ChatService {
 
       return conversation;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar a conversa.',
         error,
       );
-      return formattedError;
     }
   }
 
@@ -76,12 +74,11 @@ export class ChatService {
         },
       });
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao enviar a mensagem.',
         error,
       );
-      return formattedError;
     }
   }
 }

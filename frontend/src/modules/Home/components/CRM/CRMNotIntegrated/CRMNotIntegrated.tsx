@@ -106,7 +106,7 @@ const CRMNotIntegrated = ({ handleIntegrateCRM }: CRMNotIntegratedProps) => {
             </p>
             <button
               onClick={handleIntegrateCRM}
-              className="text-brand-primary mt-8 flex w-full items-center justify-center space-x-2 rounded-lg bg-white py-2 text-sm font-medium"
+              className="text-brand-primary mt-8 flex w-full items-center justify-center space-x-2 rounded-lg bg-white py-2 text-sm font-medium hover:opacity-85"
             >
               <IconLink size={16} color="#E73C5B" />
               <p>Integrar CRM</p>

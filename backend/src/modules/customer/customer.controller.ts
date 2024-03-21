@@ -16,12 +16,11 @@ export class CustomerController {
       const customers = await this.customerService.findAll();
       return customers;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar os clientes.',
         error,
       );
-      return formattedError;
     }
   }
 
@@ -31,12 +30,11 @@ export class CustomerController {
       const customer = await this.customerService.findOne(Number(id));
       return customer;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar o cliente.',
         error,
       );
-      return formattedError;
     }
   }
 }
