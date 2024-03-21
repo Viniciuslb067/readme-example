@@ -48,11 +48,6 @@ async function seed() {
         content:
           'Olá! Estou interessada em saber mais sobre os produtos que vocês oferecem.',
       },
-      {
-        sender: 'SALESPERSON',
-        content:
-          'Com certeza! Temos uma variedade de produtos de alta qualidade. Posso fornecer mais detalhes sobre eles.',
-      },
     ];
 
     for (const message of messages) {
