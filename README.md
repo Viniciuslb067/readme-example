@@ -1,6 +1,6 @@
 # Instruções do projeto
 <p align="center">
-  <img src="./frontend/public/logo-white.png" alt="Quesh" width="300"/>
+  <img src="./frontend/assets/logo-white.png" alt="callface-logo" width="300"/>
 </p>
 <p align="center">	
    <a href="https://www.linkedin.com/in/marcusrodriguesdev">
