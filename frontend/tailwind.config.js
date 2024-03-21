@@ -14,7 +14,8 @@ export default {
           700: '#282828'
         },
         brand: {
-          primary: '#E73C5B'
+          primary: '#E73C5B',
+          secondary: '#3D1152'
         },
         support: {
           error: '#E73C3C',
