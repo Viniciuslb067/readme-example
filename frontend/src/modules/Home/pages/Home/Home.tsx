@@ -1,4 +1,4 @@
-import Header from 'components/Header';
+import Header from 'components/Header/Header';
 import { Sections } from 'modules/Home/components';
 
 const Home = () => {
