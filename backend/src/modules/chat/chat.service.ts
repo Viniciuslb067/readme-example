@@ -1,45 +1,87 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpStatus } from '@nestjs/common';
 import { Conversation, Message } from '@prisma/client';
 import { PrismaService } from 'nestjs-prisma';
+import {
+  ErrorResponse,
+  formatError,
+} from '../../utils/error/error-response-util';
 
 @Injectable()
 export class ChatService {
   constructor(private prisma: PrismaService) {}
 
-  async getAllChats(): Promise<Conversation[]> {
-    return this.prisma.conversation.findMany({
-      include: {
-        customer: true,
-        salesperson: true,
-        messages: true,
-      },
-    });
+  async getAllChats(): Promise<Conversation[] | ErrorResponse> {
+    try {
+      const chats = await this.prisma.conversation.findMany({
+        include: {
+          customer: true,
+          salesperson: true,
+          messages: true,
+        },
+      });
+      return chats;
+    } catch (error) {
+      const formattedError: ErrorResponse = formatError(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Ocorreu um erro ao buscar as conversas.',
+        error,
+      );
+      return formattedError;
+    }
   }
 
-  async getChat(conversationId: number): Promise<Conversation> {
-    return this.prisma.conversation.findUnique({
-      where: {
-        id: Number(conversationId),
-      },
-      include: {
-        customer: true,
-        salesperson: true,
-        messages: true,
-      },
-    });
+  async getChat(conversationId: number): Promise<Conversation | ErrorResponse> {
+    try {
+      const conversation = await this.prisma.conversation.findUnique({
+        where: {
+          id: Number(conversationId),
+        },
+        include: {
+          customer: true,
+          salesperson: true,
+          messages: true,
+        },
+      });
+
+      if (!conversation) {
+        return formatError(
+          HttpStatus.NOT_FOUND,
+          'Conversa não encontrada.',
+          `Conversa com id ${conversationId} não encontrada.`,
+        );
+      }
+
+      return conversation;
+    } catch (error) {
+      const formattedError: ErrorResponse = formatError(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Ocorreu um erro ao buscar a conversa.',
+        error,
+      );
+      return formattedError;
+    }
   }
 
   async sendMessage(
     conversationId: number,
     sender: 'CUSTOMER' | 'SALESPERSON',
     content: string,
-  ): Promise<Message> {
-    return this.prisma.message.create({
-      data: {
-        content,
-        sender,
-        conversationId,
-      },
-    });
+  ): Promise<Message | ErrorResponse> {
+    try {
+      return await this.prisma.message.create({
+        data: {
+          content,
+          sender,
+          conversationId,
+        },
+      });
+    } catch (error) {
+      const formattedError: ErrorResponse = formatError(
+        HttpStatus.INTERNAL_SERVER_ERROR,
+        'Ocorreu um erro ao enviar a mensagem.',
+        error,
+      );
+      return formattedError;
+    }
   }
 }
