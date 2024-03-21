@@ -25,6 +25,10 @@ Uma aplicação com uma transcrição em tempo real da conversa que está ocorre
 # 📱 Demonstração da Aplicação
 <p align="center">
 
+
+https://github.com/marcusrodriguesdev/callface-challenge/assets/81593777/9a49713f-d50a-40ec-ad51-38b9ba06933f
+
+
 </p>
 
 # 🚀 Meus Passos
@@ -35,7 +39,7 @@ Uma aplicação com uma transcrição em tempo real da conversa que está ocorre
 
 # 🛠 Tecnologias
 As seguintes ferramentas foram usadas na construção do projeto:
-* [React]([https://reactnative.dev/](https://react.dev/))
+* [React](https://react.dev/)
 * [TypeScript](https://www.typescriptlang.org/)
 * [TailwindCss](https://tailwindcss.com/)
 * [Vite](https://vitejs.dev/)
