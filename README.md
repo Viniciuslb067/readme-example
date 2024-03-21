@@ -67,18 +67,24 @@ $ cd ..
 # Instale as dependências do backend
 $ cd backend
 $ npm install
-posgres com docker
+
+# utilize postgres com docker
 $ docker-compose -f docker-compose.db.yml up -d
 ou
 $ npm run docker:db
+
+# run migrate
 $ npx prisma migrate dev
+
+# popule o banco com conversas e informações dos usuários
 $ npm run seed
 
-
-# Execute em parelelo as dois repositorios
+# Execute em parelelo os dois diretórios
 $ cd frontend
 $ npm run dev
+
 e no backend
+
 $ cd backend
 $ npm run start:dev
 
