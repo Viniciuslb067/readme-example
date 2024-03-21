@@ -15,12 +15,11 @@ export class CustomerService {
       const customers = await this.prisma.customer.findMany();
       return customers;
     } catch (error) {
-      const formattedError: ErrorResponse = formatError(
+      throw formatError(
         HttpStatus.INTERNAL_SERVER_ERROR,
         'Ocorreu um erro ao buscar os clientes.',
         error,
       );
-      return formattedError;
     }
   }
 

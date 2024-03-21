@@ -55,7 +55,6 @@ async function seed() {
       },
     ];
 
-    // Associar as mensagens à conversa
     for (const message of messages) {
       await prisma.message.create({
         data: {
